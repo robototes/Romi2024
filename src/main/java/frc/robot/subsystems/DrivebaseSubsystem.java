@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class RomiDrivetrain extends SubsystemBase {
+public class DrivebaseSubsystem extends SubsystemBase {
   private static final double kCountsPerRevolution = 1440.0;
   private static final double kWheelDiameterInch = 2.75591; // 70 mm
 
@@ -28,7 +28,7 @@ public class RomiDrivetrain extends SubsystemBase {
       new DifferentialDrive(m_leftMotor::set, m_rightMotor::set);
 
   /** Creates a new RomiDrivetrain. */
-  public RomiDrivetrain() {
+  public DrivebaseSubsystem() {
     // Use inches as unit for encoder distances
     m_leftEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
     m_rightEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
@@ -37,6 +37,8 @@ public class RomiDrivetrain extends SubsystemBase {
     // Invert right side since motor is flipped
     m_rightMotor.setInverted(true);
   }
+
+  // TODO 1: Write a command factory to drive the robot using arcadeDrive()
 
   public void arcadeDrive(double xaxisSpeed, double zaxisRotate) {
     m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
@@ -53,15 +55,5 @@ public class RomiDrivetrain extends SubsystemBase {
 
   public double getRightDistanceInch() {
     return m_rightEncoder.getDistance();
-  }
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
   }
 }
